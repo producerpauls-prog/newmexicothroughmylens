@@ -1,7 +1,7 @@
 const PRICE_TO_SIZE = {
   3000: '8X10',
-  5000: '16X20',
-  10000: '20X30'
+  7500: '16X20',
+  12500: '20X30'
 };
 
 export async function onRequestPost(context) {
