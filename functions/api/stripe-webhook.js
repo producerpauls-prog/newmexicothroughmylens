@@ -46,10 +46,10 @@ export async function onRequestPost(context) {
     response = await fetch('https://api.sandbox.prodigi.com/v4.0/Orders', { method: 'POST', headers: { 'X-API-Key': env.PRODIGI_API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
   } catch (error) {
     console.error('Prodigi request failed', error);
-    return text(`Prodigi request failed: ${safeErrorMessage(error)}`, 502);
+    return text(`Prodigi request failed: ${safeErrorMessage(error)}`, 503);
   }
   const result = await response.text();
-  if (!response.ok) return text(`Prodigi error: ${result}`, 502);
+  if (!response.ok) return text(`Prodigi error: ${result}`, 503);
   return text('fulfilled in Prodigi sandbox', 200);
 }
 
