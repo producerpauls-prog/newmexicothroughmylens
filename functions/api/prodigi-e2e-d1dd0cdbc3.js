@@ -1,9 +1,5 @@
-const ACCESS_TOKEN = 'd1dd0cdbc3e883268ac998b0eebbdfad84a9';
-
 export async function onRequestGet({ request, env }) {
   const url = new URL(request.url);
-  if (url.searchParams.get('token') !== ACCESS_TOKEN) return new Response('Not found', { status: 404 });
-
   const orderId = url.searchParams.get('order');
   if (orderId) return orderStatus(orderId, env);
 
