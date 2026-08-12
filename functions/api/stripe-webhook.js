@@ -37,7 +37,7 @@ export async function onRequestPost(context) {
     merchantReference: `stripe-${session.id}`, idempotencyKey: `stripe-${session.id}`, shippingMethod: 'Standard',
     recipient: { name: shipping.name || session.customer_details?.name || 'Customer', email: session.customer_details?.email || null, phoneNumber: session.customer_details?.phone || null,
       address: { line1: address.line1, line2: address.line2 || null, postalOrZipCode: address.postal_code, countryCode: address.country, townOrCity: address.city, stateOrCounty: address.state || null } },
-    items: [{ merchantReference: `${photoNumber}-${size}`, sku, copies: 1, sizing: 'fillPrintArea', attributes: {}, assets: [{ printArea: 'default', url: imageUrl }] }],
+    items: [{ merchantReference: `${photoNumber}-${size}`, sku, copies: 1, sizing: 'fillPrintArea', attributes: { finish: 'lustre' }, assets: [{ printArea: 'default', url: imageUrl }] }],
     metadata: { stripeCheckoutSession: session.id, photoNumber, printSize: size, environment: 'sandbox' }
   };
 
