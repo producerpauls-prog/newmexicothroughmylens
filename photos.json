@@ -14,6 +14,13 @@
       "sha256": "ea272467794212520ed36fd8c24bd92051f5068811d3c17c74d4627257c0c74b",
       "uploadedAt": "2026-08-12T13:45:42.768Z",
       "published": true
+    },
+    {
+      "id": "NM-050",
+      "assetUrl": "https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/print-assets/NM-050.jpg",
+      "sha256": "6f6eb424c417a81b02351a5f58b1df32a91960c2e722e2e5922808ac48495fca",
+      "uploadedAt": "2026-08-12T16:00:26.784Z",
+      "published": true
     }
   ]
 }
