@@ -57,7 +57,7 @@ export async function onRequestPost(context) {
 
   let response;
   try {
-    response = await fetch('https://api.sandbox.prodigi.com/v4.0/Orders', { method: 'POST', headers: { 'X-API-Key': env.PRODIGI_API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    response = await fetch('https://api.prodigi.com/v4.0/Orders', { method: 'POST', headers: { 'X-API-Key': env.PRODIGI_API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
   } catch (error) {
     console.error('Prodigi request failed', error);
     return text(`Prodigi request failed: ${safeErrorMessage(error)}`, 503);
