@@ -26,6 +26,8 @@ jobs:
           node-version: 22
       - name: Assign IDs and publish originals
         run: node scripts/process-photo-uploads.mjs
+      - name: Audit print quality
+        run: node scripts/audit-print-quality.mjs
       - name: Commit published photographs
         run: |
           if git diff --quiet; then
@@ -34,6 +36,6 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A incoming-photos print-assets photos.json
+          git add -A incoming-photos print-assets photos.json print-eligibility.json
           git commit -m "Publish uploaded photographs"
           git push
