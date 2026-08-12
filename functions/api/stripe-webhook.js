@@ -24,8 +24,11 @@ export async function onRequestPost(context) {
   if (session.payment_status && session.payment_status === 'unpaid') return text('not paid', 200);
   const photoNumber = getPhotoNumber(session);
   if (!photoNumber) return text('No Photo Number; manual fulfillment required', 200);
-  const size = parseSizeFromReference(session.client_reference_id) || PRICE_TO_SIZE[session.amount_subtotal];
-  if (!size) return text('Unable to determine print size; manual fulfillment required', 200);
+  const paidSize = PRICE_TO_SIZE[session.amount_subtotal];
+  if (!paidSize) return text('Unable to determine paid print size; manual fulfillment required', 200);
+  const referencedSize = parseSizeFromReference(session.client_reference_id);
+  if (referencedSize && referencedSize !== paidSize) return text('Checkout reference does not match the paid print size; manual fulfillment required', 200);
+  const size = paidSize;
   const sku = env[`PRODIGI_SKU_${size}`];
   if (!sku) return text(`PRODIGI_SKU_${size} is not configured`, 500);
 
@@ -84,16 +87,15 @@ export async function onRequestPost(context) {
 }
 
 function getPhotoNumber(session) {
-  const fromRef = (session.client_reference_id || '').match(/NM-\d{3}/i)?.[0]; if (fromRef) return fromRef.toUpperCase();
-  for (const field of session.custom_fields || []) { const label = field.label?.custom || ''; if (/photo\s*number/i.test(label)) { const value = field.text?.value || field.numeric?.value || field.dropdown?.value || ''; const match = String(value).match(/NM-?\d{3}|\d{1,3}/i); if (match) { const n = String(match[0]).replace(/\D/g, ''); return `NM-${n.padStart(3, '0')}`; } } }
+  const fromRef = (session.client_reference_id || '').match(/NM-\d{3,9}/i)?.[0]; if (fromRef) return fromRef.toUpperCase();
+  for (const field of session.custom_fields || []) { const label = field.label?.custom || ''; if (/photo\s*number/i.test(label)) { const value = field.text?.value || field.numeric?.value || field.dropdown?.value || ''; const match = String(value).match(/NM-?\d{3,9}|\d{1,9}/i); if (match) { const n = String(match[0]).replace(/\D/g, ''); return `NM-${n.padStart(3, '0')}`; } } }
   return null;
 }
 
 function parseSizeFromReference(ref = '') { const normalized = ref.toUpperCase().replace(/[^0-9X]/g, ''); for (const size of ['8X10','16X20','20X30']) if (normalized.includes(size)) return size; return null; }
 
 function photoUrl(photoNumber, base) {
-  const files = {'NM-001':'photo-01-2131.jpg','NM-002':'photo-02-2238.jpg','NM-006':'photo-06-all_1119.jpg','NM-007':'photo-07-all_1141.jpg','NM-008':'photo-08-all_1143.jpg','NM-009':'photo-09-all_1144.jpg','NM-010':'photo-10-_all_117.jpg','NM-011':'photo-11-all_1290.jpg','NM-012':'photo-12-all_1296.jpg','NM-013':'photo-13-all_1424.jpg','NM-014':'photo-14-all_1452.jpg','NM-015':'photo-15-all_1488.jpg','NM-016':'photo-16-all_1893.jpg','NM-017':'photo-17-all_1898.jpg','NM-018':'photo-18-_all_193.jpg','NM-019':'photo-19-all_2066.jpg','NM-020':'photo-20-all_2090.jpg','NM-021':'photo-21-all_2130.jpg','NM-022':'photo-22-all_2131.jpg','NM-023':'photo-23-all_2132.jpg','NM-024':'photo-24-all_2601.jpg','NM-025':'photo-25-all_2772.jpg','NM-026':'photo-26-all_2945.jpg','NM-027':'photo-27-all_3066.jpg','NM-028':'photo-28-all_3105.jpg','NM-029':'photo-29-all_3401.jpg','NM-030':'photo-30-all_3406.jpg','NM-031':'photo-31-all_3416.jpg','NM-032':'photo-32-all_3419.jpg','NM-033':'photo-33-all_3432.jpg','NM-034':'photo-34-all_3433.jpg','NM-035':'photo-35-_all_397.jpg','NM-036':'photo-36-all_4079.jpg','NM-037':'photo-37-all_4191.jpg','NM-038':'photo-38-all_4245.jpg','NM-039':'photo-39-all_4250.jpg','NM-040':'photo-40-_all_435.jpg','NM-041':'photo-41-all_4412.jpg','NM-042':'photo-42-all_4423.jpg','NM-043':'photo-43-_all_625.jpg','NM-044':'photo-44-_all_628.jpg','NM-045':'photo-45-_all_631.jpg','NM-046':'photo-46-_all_653.jpg','NM-047':'photo-47-_all_878.jpg'};
-  const file = files[photoNumber]; return file ? `${base.replace(/\/$/, '')}/${photoNumber}.jpg` : null;
+  return /^NM-\d{3,9}$/.test(photoNumber) ? `${base.replace(/\/$/, '')}/${photoNumber}.jpg` : null;
 }
 
 async function validatePrintAsset(url) {

@@ -6,17 +6,17 @@ export async function onRequest(context) {
   let html = await response.text();
   const script = `<script>
   (() => {
-    const sizes=['8X10','11X14','16X20','20X30'];
     document.addEventListener('click', (event) => {
       const button=event.target.closest('.photo-buy');
       if(!button) return;
       const holder=button.closest('[data-photo]');
       const photo=holder?.dataset?.photo;
       if(!photo) return;
-      document.querySelectorAll('.modal-choice').forEach((link,i) => {
-        if(!sizes[i]) return;
+      document.querySelectorAll('.modal-choice').forEach((link) => {
+        const size=link.dataset.size;
+        if(!size) return;
         const u=new URL(link.getAttribute('href'), location.href);
-        u.searchParams.set('client_reference_id', photo+'_'+sizes[i]);
+        u.searchParams.set('client_reference_id', photo+'_'+size);
         link.href=u.toString();
       });
     }, true);
