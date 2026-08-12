@@ -19,9 +19,11 @@ export async function onRequestPost(context) {
   let event;
   try { event = JSON.parse(raw); } catch { return text('Invalid JSON', 400); }
   if (event.type !== 'checkout.session.completed' && event.type !== 'checkout.session.async_payment_succeeded') return text('ignored', 200);
+  if (event.livemode !== true) return text('Non-live event ignored', 200);
 
   const session = event.data?.object || {};
-  if (session.payment_status && session.payment_status === 'unpaid') return text('not paid', 200);
+  if (session.livemode !== true) return text('Non-live session ignored', 200);
+  if (session.payment_status !== 'paid') return text('not paid', 200);
   const photoNumber = getPhotoNumber(session);
   if (!photoNumber) return text('No Photo Number; manual fulfillment required', 200);
   const paidSize = PRICE_TO_SIZE[session.amount_subtotal];
@@ -52,7 +54,7 @@ export async function onRequestPost(context) {
     recipient: { name: shipping.name || session.customer_details?.name || 'Customer', email: session.customer_details?.email || null, phoneNumber: session.customer_details?.phone || null,
       address: { line1: address.line1, line2: address.line2 || null, postalOrZipCode: address.postal_code, countryCode: address.country, townOrCity: address.city, stateOrCounty: address.state || null } },
     items: [{ merchantReference: `${photoNumber}-${size}`, sku, copies: 1, sizing: 'fillPrintArea', attributes: { finish: 'lustre' }, assets: [{ printArea: 'default', url: imageUrl }] }],
-    metadata: { stripeCheckoutSession: session.id, photoNumber, printSize: size, environment: 'sandbox' }
+    metadata: { stripeCheckoutSession: session.id, photoNumber, printSize: size, environment: 'production' }
   };
 
   let response;
@@ -83,12 +85,12 @@ export async function onRequestPost(context) {
     return text('Prodigi accepted the order without the selected image URL', 503);
   }
 
-  return text(`fulfilled in Prodigi sandbox; order ${fulfillment.orderId}; asset ${fulfillment.assetStatus}; image URL ${fulfillment.assetUrlVerified ? 'verified' : 'pending verification'}`, 200);
+  return text(`fulfilled in Prodigi production; order ${fulfillment.orderId}; asset ${fulfillment.assetStatus}; image URL ${fulfillment.assetUrlVerified ? 'verified' : 'pending verification'}`, 200);
 }
 
 function getPhotoNumber(session) {
   const fromRef = (session.client_reference_id || '').match(/NM-\d{3,9}/i)?.[0]; if (fromRef) return fromRef.toUpperCase();
-  for (const field of session.custom_fields || []) { const label = field.label?.custom || ''; if (/photo\s*number/i.test(label)) { const value = field.text?.value || field.numeric?.value || field.dropdown?.value || ''; const match = String(value).match(/NM-?\d{3,9}|\d{1,9}/i); if (match) { const n = String(match[0]).replace(/\D/g, ''); return `NM-${n.padStart(3, '0')}`; } } }
+  for (const field of session.custom_fields || []) { const label = field.label?.custom || ''; if (/(?:photo|print)\s*number/i.test(label)) { const value = field.text?.value || field.numeric?.value || field.dropdown?.value || ''; const match = String(value).match(/NM-?\d{3,9}|\d{1,9}/i); if (match) { const n = String(match[0]).replace(/\D/g, ''); return `NM-${n.padStart(3, '0')}`; } } }
   return null;
 }
 
