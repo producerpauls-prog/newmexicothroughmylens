@@ -1,4 +1,12 @@
 {
   "version": 1,
-  "photos": []
+  "photos": [
+    {
+      "id": "NM-048",
+      "assetUrl": "https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/print-assets/NM-048.jpg",
+      "sha256": "5547c5b9725287e36eabc75feb29d0d77a8285472a74664c8c708b87a8dcb577",
+      "uploadedAt": "2026-08-12T13:16:09.851Z",
+      "published": true
+    }
+  ]
 }
