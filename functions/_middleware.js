@@ -15,7 +15,7 @@ export async function onRequest(context) {
       document.querySelectorAll('.modal-choice').forEach((link) => {
         const size=link.dataset.size;
         if(!size) return;
-        const u=new URL(link.getAttribute('href'), location.href);
+        const u=new URL(link.dataset.link || link.getAttribute('href'), location.href);
         u.searchParams.set('client_reference_id', photo+'_'+size);
         link.href=u.toString();
       });
