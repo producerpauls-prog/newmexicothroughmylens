@@ -27,11 +27,11 @@ export async function onRequestGet({ request, env }) {
   const timestamp = Math.floor(Date.now() / 1000);
   const encoder = new TextEncoder();
   const key = await crypto.subtle.importKey('raw', encoder.encode(env.STRIPE_WEBHOOK_SECRET), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
-  const bytes = await crypto.subtle.sign('HMAC', key, encoder.encode(\`${timestamp}.\${body}\`));
+  const bytes = await crypto.subtle.sign('HMAC', key, encoder.encode(String(timestamp) + '.' + body));
   const signature = [...new Uint8Array(bytes)].map(byte => byte.toString(16).padStart(2, '0')).join('');
   const response = await fetch(new URL('/api/stripe-webhook', url.origin), {
     method: 'POST',
-    headers: { 'content-type': 'application/json', 'stripe-signature': \`t=\${timestamp},v1=\${signature}\` },
+    headers: { 'content-type': 'application/json', 'stripe-signature': 't=' + timestamp + ',v1=' + signature },
     body
   });
   return Response.json({ httpStatus: response.status, body: await response.text(), session: event.data.object.id }, { status: response.ok ? 200 : response.status, headers: { 'cache-control': 'no-store' } });
@@ -39,7 +39,7 @@ export async function onRequestGet({ request, env }) {
 
 async function orderStatus(orderId, env) {
   if (!/^ord_[A-Za-z0-9]+$/.test(orderId)) return Response.json({ error: 'invalid order id' }, { status: 400 });
-  const response = await fetch(\`https://api.sandbox.prodigi.com/v4.0/orders/\${orderId}\`, { headers: { 'X-API-Key': env.PRODIGI_API_KEY } });
+  const response = await fetch('https://api.sandbox.prodigi.com/v4.0/orders/' + orderId, { headers: { 'X-API-Key': env.PRODIGI_API_KEY } });
   const body = await response.json().catch(() => null);
   const order = body?.order || {};
   const item = order.items?.[0] || {};
