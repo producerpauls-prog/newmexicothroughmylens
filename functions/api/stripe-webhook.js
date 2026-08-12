@@ -41,7 +41,13 @@ export async function onRequestPost(context) {
     metadata: { stripeCheckoutSession: session.id, photoNumber, printSize: size, environment: 'sandbox' }
   };
 
-  const response = await fetch('https://api.sandbox.prodigi.com/v4.0/Orders', { method: 'POST', headers: { 'X-API-Key': env.PRODIGI_API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+  let response;
+  try {
+    response = await fetch('https://api.sandbox.prodigi.com/v4.0/Orders', { method: 'POST', headers: { 'X-API-Key': env.PRODIGI_API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+  } catch (error) {
+    console.error('Prodigi request failed', error);
+    return text(`Prodigi request failed: ${safeErrorMessage(error)}`, 502);
+  }
   const result = await response.text();
   if (!response.ok) return text(`Prodigi error: ${result}`, 502);
   return text('fulfilled in Prodigi sandbox', 200);
@@ -59,4 +65,5 @@ function photoUrl(photoNumber, base) {
 }
 async function verifyStripeSignature(payload, header, secret) { const parts=header.split(',').map(x=>x.trim()); const timestamp=parts.find(x=>x.startsWith('t='))?.slice(2); const signatures=parts.filter(x=>x.startsWith('v1=')).map(x=>x.slice(3)); if(!timestamp||!signatures.length)return false; if(Math.abs(Date.now()/1000-Number(timestamp))>300)return false; const enc=new TextEncoder(); const key=await crypto.subtle.importKey('raw',enc.encode(secret),{name:'HMAC',hash:'SHA-256'},false,['sign']); const sig=await crypto.subtle.sign('HMAC',key,enc.encode(`${timestamp}.${payload}`)); const expected=[...new Uint8Array(sig)].map(b=>b.toString(16).padStart(2,'0')).join(''); return signatures.some(s=>timingSafeEqual(s,expected)); }
 function timingSafeEqual(a,b){if(a.length!==b.length)return false;let diff=0;for(let i=0;i<a.length;i++)diff|=a.charCodeAt(i)^b.charCodeAt(i);return diff===0;}
+function safeErrorMessage(error){return String(error?.message||error||'Unknown error').replace(/[^\w .,:;()/-]/g,'?').slice(0,160);}
 function text(body,status=200){return new Response(body,{status,headers:{'content-type':'text/plain; charset=utf-8','cache-control':'no-store'}});}
