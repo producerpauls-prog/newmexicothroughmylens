@@ -4,7 +4,7 @@ const PRICE_TO_SIZE = {
   12500: '20X30'
 };
 
-const DEFAULT_PRINT_ASSET_BASE_URL = 'https://newmexicothroughmylens.com/api/print-assets';
+const DEFAULT_PRINT_ASSET_BASE_URL = 'https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/print-assets';
 
 export async function onRequestPost(context) {
   const { request, env } = context;
@@ -33,8 +33,8 @@ export async function onRequestPost(context) {
   const address = shipping?.address;
   if (!shipping || !address) return text('No shipping details; manual fulfillment required', 200);
 
-  // Use the print-asset endpoint so Prodigi receives correct GET and HEAD metadata.
-  // The static Pages asset currently reports an incorrect Content-Length for HEAD.
+  // Prodigi's downloader does not complete downloads from Cloudflare Pages URLs,
+  // so fulfillment uses GitHub's direct raw-file host for these immutable assets.
   const imageUrl = photoUrl(photoNumber, env.PRINT_ASSET_BASE_URL || DEFAULT_PRINT_ASSET_BASE_URL);
   if (!imageUrl) return text('Unknown photo number', 400);
 
