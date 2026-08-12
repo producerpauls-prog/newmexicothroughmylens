@@ -5,6 +5,7 @@ const PRICE_TO_SIZE = {
 };
 
 const DEFAULT_PRINT_ASSET_BASE_URL = 'https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/print-assets';
+const DEFAULT_PRINT_ELIGIBILITY_URL = 'https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/print-eligibility.json';
 
 export async function onRequestPost(context) {
   const { request, env } = context;
@@ -31,6 +32,9 @@ export async function onRequestPost(context) {
   const referencedSize = parseSizeFromReference(session.client_reference_id);
   if (referencedSize && referencedSize !== paidSize) return text('Checkout reference does not match the paid print size; manual fulfillment required', 200);
   const size = paidSize;
+  const eligibility = await checkPrintEligibility(photoNumber, size, env.PRINT_ELIGIBILITY_URL || DEFAULT_PRINT_ELIGIBILITY_URL);
+  if (eligibility.error) return text(`Print-quality manifest unavailable: ${eligibility.error}`, 503);
+  if (!eligibility.allowed) return text(`${photoNumber} is not approved for ${size} printing; manual fulfillment required`, 200);
   const sku = env[`PRODIGI_SKU_${size}`];
   if (!sku) return text(`PRODIGI_SKU_${size} is not configured`, 500);
 
@@ -98,6 +102,28 @@ function parseSizeFromReference(ref = '') { const normalized = ref.toUpperCase()
 
 function photoUrl(photoNumber, base) {
   return /^NM-\d{3,9}$/.test(photoNumber) ? `${base.replace(/\/$/, '')}/${photoNumber}.jpg` : null;
+}
+
+async function checkPrintEligibility(photoNumber, size, url) {
+  let response;
+  try {
+    response = await fetch(url, { headers: { Accept: 'application/json' }, cache: 'no-store' });
+  } catch (error) {
+    return { allowed: false, error: safeErrorMessage(error) };
+  }
+
+  if (!response.ok) {
+    await response.body?.cancel();
+    return { allowed: false, error: `HTTP ${response.status}` };
+  }
+
+  try {
+    const manifest = await response.json();
+    const eligibleSizes = manifest?.photos?.[photoNumber]?.eligibleSizes;
+    return { allowed: Array.isArray(eligibleSizes) && eligibleSizes.includes(size), error: null };
+  } catch (error) {
+    return { allowed: false, error: safeErrorMessage(error) };
+  }
 }
 
 async function validatePrintAsset(url) {
