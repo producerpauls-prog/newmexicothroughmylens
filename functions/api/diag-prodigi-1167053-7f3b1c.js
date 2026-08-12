@@ -1,6 +1,6 @@
 export async function onRequestGet({ env }) {
   if (!env.PRODIGI_API_KEY) return Response.json({ error: 'missing Prodigi binding' }, { status: 500 });
-  const response = await fetch('https://api.sandbox.prodigi.com/v4.0/orders/ord_1167053', {
+  const response = await fetch('https://api.sandbox.prodigi.com/v4.0/orders/ord_1167054', {
     headers: { 'X-API-Key': env.PRODIGI_API_KEY }
   });
   const body = await response.json().catch(() => null);
