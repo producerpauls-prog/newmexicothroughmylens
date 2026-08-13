@@ -6,6 +6,10 @@ on:
       - main
     paths:
       - incoming-photos/**
+      - '*.jpg'
+      - '*.jpeg'
+      - '*.JPG'
+      - '*.JPEG'
 
 permissions:
   contents: write
@@ -36,6 +40,7 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A incoming-photos print-assets photos.json print-eligibility.json
+          git add -u -- .
+          git add -- print-assets photos.json print-eligibility.json
           git commit -m "Publish uploaded photographs"
           git push
