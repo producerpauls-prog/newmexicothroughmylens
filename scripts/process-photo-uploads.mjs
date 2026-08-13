@@ -11,10 +11,15 @@ const assetBaseUrl = 'https://raw.githubusercontent.com/producerpauls-prog/newme
 await mkdir(incomingDirectory, { recursive: true });
 await mkdir(assetDirectory, { recursive: true });
 
-const incomingFiles = (await readdir(incomingDirectory, { withFileTypes: true }))
-  .filter(entry => entry.isFile() && /^.+\.jpe?g$/i.test(entry.name))
-  .map(entry => entry.name)
-  .sort((a, b) => a.localeCompare(b));
+const isJpegName = name => /^.+\.jpe?g$/i.test(name);
+const queuedUploads = (await readdir(incomingDirectory, { withFileTypes: true }))
+  .filter(entry => entry.isFile() && isJpegName(entry.name))
+  .map(entry => ({ filename: entry.name, sourcePath: path.join(incomingDirectory, entry.name) }));
+const rootUploads = (await readdir(root, { withFileTypes: true }))
+  .filter(entry => entry.isFile() && isJpegName(entry.name))
+  .map(entry => ({ filename: entry.name, sourcePath: path.join(root, entry.name) }));
+const incomingFiles = [...queuedUploads, ...rootUploads]
+  .sort((a, b) => a.filename.localeCompare(b.filename));
 
 if (!incomingFiles.length) {
   console.log('No JPEG uploads to process.');
@@ -34,8 +39,7 @@ let nextNumber = Math.max(0, ...usedNumbers) + 1;
 const knownHashes = new Set(manifest.photos.map(photo => photo.sha256).filter(Boolean));
 let published = 0;
 
-for (const filename of incomingFiles) {
-  const incomingPath = path.join(incomingDirectory, filename);
+for (const { filename, sourcePath: incomingPath } of incomingFiles) {
   const bytes = await readFile(incomingPath);
   if (bytes.length < 4 || bytes[0] !== 0xff || bytes[1] !== 0xd8 || bytes[2] !== 0xff) {
     throw new Error(`${filename} is not a valid JPEG file.`);

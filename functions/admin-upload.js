@@ -1,4 +1,4 @@
-const SECURE_UPLOAD_URL = 'https://github.com/producerpauls-prog/newmexicothroughmylens/upload/main/incoming-photos';
+const SECURE_UPLOAD_URL = 'https://github.com/producerpauls-prog/newmexicothroughmylens/upload/main';
 
 export function onRequestGet() {
   return redirectToSecureUploader();

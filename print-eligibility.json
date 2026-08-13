@@ -1120,6 +1120,32 @@
           "eligible": false
         }
       }
+    },
+    "NM-051": {
+      "width": 6240,
+      "height": 4160,
+      "eligibleSizes": [
+        "8X10",
+        "16X20",
+        "20X30"
+      ],
+      "evaluations": {
+        "8X10": {
+          "effectiveDpi": 520,
+          "cropLossPercent": 16.7,
+          "eligible": true
+        },
+        "16X20": {
+          "effectiveDpi": 260,
+          "cropLossPercent": 16.7,
+          "eligible": true
+        },
+        "20X30": {
+          "effectiveDpi": 208,
+          "cropLossPercent": 0,
+          "eligible": true
+        }
+      }
     }
   }
 }
