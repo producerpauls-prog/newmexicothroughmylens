@@ -43,30 +43,6 @@
         }
       }
     },
-    "NM-002": {
-      "width": 1536,
-      "height": 2048,
-      "eligibleSizes": [
-        "8X10"
-      ],
-      "evaluations": {
-        "8X10": {
-          "effectiveDpi": 192,
-          "cropLossPercent": 6.3,
-          "eligible": true
-        },
-        "16X20": {
-          "effectiveDpi": 96,
-          "cropLossPercent": 6.3,
-          "eligible": false
-        },
-        "20X30": {
-          "effectiveDpi": 68.3,
-          "cropLossPercent": 11.1,
-          "eligible": false
-        }
-      }
-    },
     "NM-006": {
       "width": 2048,
       "height": 1536,
@@ -509,30 +485,6 @@
         "20X30": {
           "effectiveDpi": 57.6,
           "cropLossPercent": 15.6,
-          "eligible": false
-        }
-      }
-    },
-    "NM-025": {
-      "width": 2048,
-      "height": 1536,
-      "eligibleSizes": [
-        "8X10"
-      ],
-      "evaluations": {
-        "8X10": {
-          "effectiveDpi": 192,
-          "cropLossPercent": 6.3,
-          "eligible": true
-        },
-        "16X20": {
-          "effectiveDpi": 96,
-          "cropLossPercent": 6.3,
-          "eligible": false
-        },
-        "20X30": {
-          "effectiveDpi": 68.3,
-          "cropLossPercent": 11.1,
           "eligible": false
         }
       }
@@ -1073,28 +1025,6 @@
         "20X30": {
           "effectiveDpi": 57.6,
           "cropLossPercent": 15.6,
-          "eligible": false
-        }
-      }
-    },
-    "NM-049": {
-      "width": 2048,
-      "height": 945,
-      "eligibleSizes": [],
-      "evaluations": {
-        "8X10": {
-          "effectiveDpi": 118.1,
-          "cropLossPercent": 42.3,
-          "eligible": false
-        },
-        "16X20": {
-          "effectiveDpi": 59.1,
-          "cropLossPercent": 42.3,
-          "eligible": false
-        },
-        "20X30": {
-          "effectiveDpi": 47.3,
-          "cropLossPercent": 30.8,
           "eligible": false
         }
       }
