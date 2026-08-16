@@ -63,6 +63,48 @@
       "sha256": "318c2b9bc957d078387e5333f017a7d59ab13304ca656958b785817bcf08ea0b",
       "uploadedAt": "2026-08-13T01:43:26.661Z",
       "published": true
+    },
+    {
+      "id": "NM-058",
+      "assetUrl": "https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/print-assets/NM-058.jpg",
+      "sha256": "fe927f9dff8f64a282f84b99145b4dbe32efd4d5ec20b28914a2b12ffc7ba9fe",
+      "uploadedAt": "2026-08-16T03:15:30.643Z",
+      "published": true
+    },
+    {
+      "id": "NM-059",
+      "assetUrl": "https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/print-assets/NM-059.jpg",
+      "sha256": "3b5b454d230da84db10ef9fa7fdd8658fca61bc108aecd2e7c55095601b791be",
+      "uploadedAt": "2026-08-16T03:15:30.649Z",
+      "published": true
+    },
+    {
+      "id": "NM-060",
+      "assetUrl": "https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/print-assets/NM-060.jpg",
+      "sha256": "fd3f008d14fa5a4e2e2d24b3be2f6dc9263173d4a8e704cb42daea723d2096e2",
+      "uploadedAt": "2026-08-16T03:15:30.688Z",
+      "published": true
+    },
+    {
+      "id": "NM-061",
+      "assetUrl": "https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/print-assets/NM-061.jpg",
+      "sha256": "f22b7fcc7aabb62d1c1cce53cf76c4f66189e2be459f9e6d3e3625d0abe44f58",
+      "uploadedAt": "2026-08-16T03:15:30.715Z",
+      "published": true
+    },
+    {
+      "id": "NM-062",
+      "assetUrl": "https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/print-assets/NM-062.jpg",
+      "sha256": "140cc42c7e229a37711508949b9f0f50c284f62392f493d73e345863dd17f8de",
+      "uploadedAt": "2026-08-16T03:15:30.735Z",
+      "published": true
+    },
+    {
+      "id": "NM-063",
+      "assetUrl": "https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/print-assets/NM-063.jpg",
+      "sha256": "f4517c8669882f863c8f052fbc5dcca3ae6806e8f3615962a30cc1c9904d6a23",
+      "uploadedAt": "2026-08-16T03:15:30.739Z",
+      "published": true
     }
   ]
 }
