@@ -1752,6 +1752,110 @@
           "eligible": true
         }
       }
+    },
+    "NM-078": {
+      "width": 6020,
+      "height": 4015,
+      "eligibleSizes": [
+        "8X10",
+        "16X20",
+        "20X30"
+      ],
+      "evaluations": {
+        "8X10": {
+          "effectiveDpi": 501.9,
+          "cropLossPercent": 16.6,
+          "eligible": true
+        },
+        "16X20": {
+          "effectiveDpi": 250.9,
+          "cropLossPercent": 16.6,
+          "eligible": true
+        },
+        "20X30": {
+          "effectiveDpi": 200.7,
+          "cropLossPercent": 0,
+          "eligible": true
+        }
+      }
+    },
+    "NM-079": {
+      "width": 6020,
+      "height": 4015,
+      "eligibleSizes": [
+        "8X10",
+        "16X20",
+        "20X30"
+      ],
+      "evaluations": {
+        "8X10": {
+          "effectiveDpi": 501.9,
+          "cropLossPercent": 16.6,
+          "eligible": true
+        },
+        "16X20": {
+          "effectiveDpi": 250.9,
+          "cropLossPercent": 16.6,
+          "eligible": true
+        },
+        "20X30": {
+          "effectiveDpi": 200.7,
+          "cropLossPercent": 0,
+          "eligible": true
+        }
+      }
+    },
+    "NM-080": {
+      "width": 6020,
+      "height": 4015,
+      "eligibleSizes": [
+        "8X10",
+        "16X20",
+        "20X30"
+      ],
+      "evaluations": {
+        "8X10": {
+          "effectiveDpi": 501.9,
+          "cropLossPercent": 16.6,
+          "eligible": true
+        },
+        "16X20": {
+          "effectiveDpi": 250.9,
+          "cropLossPercent": 16.6,
+          "eligible": true
+        },
+        "20X30": {
+          "effectiveDpi": 200.7,
+          "cropLossPercent": 0,
+          "eligible": true
+        }
+      }
+    },
+    "NM-081": {
+      "width": 6020,
+      "height": 4015,
+      "eligibleSizes": [
+        "8X10",
+        "16X20",
+        "20X30"
+      ],
+      "evaluations": {
+        "8X10": {
+          "effectiveDpi": 501.9,
+          "cropLossPercent": 16.6,
+          "eligible": true
+        },
+        "16X20": {
+          "effectiveDpi": 250.9,
+          "cropLossPercent": 16.6,
+          "eligible": true
+        },
+        "20X30": {
+          "effectiveDpi": 200.7,
+          "cropLossPercent": 0,
+          "eligible": true
+        }
+      }
     }
   }
 }
