@@ -231,6 +231,55 @@
       "sha256": "ca4a2d030767b05966e194f87f031aa56e9891b1d257e4983c0f957f167b3cc5",
       "uploadedAt": "2026-08-19T01:40:42.084Z",
       "published": true
+    },
+    {
+      "id": "NM-082",
+      "assetUrl": "https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/print-assets/NM-082.jpg",
+      "sha256": "55e1d93fc34ba716d3e1dfb112488ef68807b6094c82c9aafc4d16f09a092011",
+      "uploadedAt": "2026-08-27T13:32:30.819Z",
+      "published": true
+    },
+    {
+      "id": "NM-083",
+      "assetUrl": "https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/print-assets/NM-083.jpg",
+      "sha256": "45188931d57b24653d5e1880118214791f3afbd118b8bacd09ae412c54729bb8",
+      "uploadedAt": "2026-08-27T13:32:30.824Z",
+      "published": true
+    },
+    {
+      "id": "NM-084",
+      "assetUrl": "https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/print-assets/NM-084.jpg",
+      "sha256": "e13d724df8949f1d020aa47af4ef8388034c6022087d122f581b48473c63c226",
+      "uploadedAt": "2026-08-27T13:32:30.826Z",
+      "published": true
+    },
+    {
+      "id": "NM-085",
+      "assetUrl": "https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/print-assets/NM-085.jpg",
+      "sha256": "3149ba5b303a517696e10c35f37cb096b5da696452544b28a77411cd14796886",
+      "uploadedAt": "2026-08-27T13:32:30.828Z",
+      "published": true
+    },
+    {
+      "id": "NM-086",
+      "assetUrl": "https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/print-assets/NM-086.jpg",
+      "sha256": "25613c4bd77f314c131bb66e89689f9ab49a5de6ae8fe045e7129232fa41bc2f",
+      "uploadedAt": "2026-08-27T13:32:30.830Z",
+      "published": true
+    },
+    {
+      "id": "NM-087",
+      "assetUrl": "https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/print-assets/NM-087.jpg",
+      "sha256": "340a1b58058013bcbf14b6816542f259636b1ea9aab2939291178f2fdf3d1f90",
+      "uploadedAt": "2026-08-27T13:32:30.832Z",
+      "published": true
+    },
+    {
+      "id": "NM-088",
+      "assetUrl": "https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/print-assets/NM-088.jpg",
+      "sha256": "2475381b2898632bdb5677ad4bdd3e82575b9e3fe78cd01473fd1118d39f793e",
+      "uploadedAt": "2026-08-27T13:32:30.834Z",
+      "published": true
     }
   ]
 }
