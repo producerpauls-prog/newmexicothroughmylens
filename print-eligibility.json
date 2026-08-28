@@ -2024,6 +2024,28 @@
           "eligible": false
         }
       }
+    },
+    "NM-089": {
+      "width": 2048,
+      "height": 714,
+      "eligibleSizes": [],
+      "evaluations": {
+        "8X10": {
+          "effectiveDpi": 89.3,
+          "cropLossPercent": 56.4,
+          "eligible": false
+        },
+        "16X20": {
+          "effectiveDpi": 44.6,
+          "cropLossPercent": 56.4,
+          "eligible": false
+        },
+        "20X30": {
+          "effectiveDpi": 35.7,
+          "cropLossPercent": 47.7,
+          "eligible": false
+        }
+      }
     }
   }
 }
