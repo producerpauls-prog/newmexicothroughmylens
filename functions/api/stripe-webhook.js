@@ -1,7 +1,10 @@
 const PRICE_TO_SIZE = {
   3000: '8X10',
+  5500: '8X10',
   7500: '16X20',
-  12500: '20X30'
+  10000: '16X20',
+  12500: '20X30',
+  15000: '20X30'
 };
 
 const DEFAULT_PRINT_ASSET_BASE_URL = 'https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/print-assets';
