@@ -308,6 +308,27 @@
       "sha256": "1ddbcd2216ec963ba4da1c119f71bb394d30456616c24a9b084f09159c274ff7",
       "uploadedAt": "2026-09-01T00:26:43.893Z",
       "published": true
+    },
+    {
+      "id": "NM-093",
+      "assetUrl": "https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/print-assets/NM-093.jpg",
+      "sha256": "c84737ae05e8178caf5ffb680e28556f25548d5573cbaae7daf1dcacfe16dc81",
+      "uploadedAt": "2026-10-24T04:57:45.184Z",
+      "published": true
+    },
+    {
+      "id": "NM-094",
+      "assetUrl": "https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/print-assets/NM-094.jpg",
+      "sha256": "67f0bc9fd0ff12db742aa19465f86a878c80f7a0798a50cd9a06782bb0e78bc9",
+      "uploadedAt": "2026-10-24T04:57:45.188Z",
+      "published": true
+    },
+    {
+      "id": "NM-095",
+      "assetUrl": "https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/print-assets/NM-095.jpg",
+      "sha256": "1545221d52d0818abcabfdf70e0c1427a144a5e64fac23bc70fa9817b5333f80",
+      "uploadedAt": "2026-10-24T04:57:45.190Z",
+      "published": true
     }
   ]
 }

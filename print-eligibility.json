@@ -2112,6 +2112,76 @@
           "eligible": false
         }
       }
+    },
+    "NM-093": {
+      "width": 6240,
+      "height": 4160,
+      "eligibleSizes": [
+        "8X10",
+        "16X20",
+        "20X30"
+      ],
+      "evaluations": {
+        "8X10": {
+          "effectiveDpi": 520,
+          "cropLossPercent": 16.7,
+          "eligible": true
+        },
+        "16X20": {
+          "effectiveDpi": 260,
+          "cropLossPercent": 16.7,
+          "eligible": true
+        },
+        "20X30": {
+          "effectiveDpi": 208,
+          "cropLossPercent": 0,
+          "eligible": true
+        }
+      }
+    },
+    "NM-094": {
+      "width": 2987,
+      "height": 1580,
+      "eligibleSizes": [],
+      "evaluations": {
+        "8X10": {
+          "effectiveDpi": 197.5,
+          "cropLossPercent": 33.9,
+          "eligible": false
+        },
+        "16X20": {
+          "effectiveDpi": 98.8,
+          "cropLossPercent": 33.9,
+          "eligible": false
+        },
+        "20X30": {
+          "effectiveDpi": 79,
+          "cropLossPercent": 20.7,
+          "eligible": false
+        }
+      }
+    },
+    "NM-095": {
+      "width": 5487,
+      "height": 2731,
+      "eligibleSizes": [],
+      "evaluations": {
+        "8X10": {
+          "effectiveDpi": 341.4,
+          "cropLossPercent": 37.8,
+          "eligible": false
+        },
+        "16X20": {
+          "effectiveDpi": 170.7,
+          "cropLossPercent": 37.8,
+          "eligible": false
+        },
+        "20X30": {
+          "effectiveDpi": 136.6,
+          "cropLossPercent": 25.3,
+          "eligible": false
+        }
+      }
     }
   }
 }
