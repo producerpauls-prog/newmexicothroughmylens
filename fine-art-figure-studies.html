@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Fine Art Figure Studies | New Mexico Through My Lens</title>
+<style>*{box-sizing:border-box}body{margin:0;background:#0d0d0d;color:#eee;font-family:Arial,Helvetica,sans-serif}a{color:#eee}nav{padding:22px 6vw;border-bottom:1px solid #333}nav a{text-decoration:none}main{max-width:1000px;margin:auto;padding:9vh 6vw}h1{font-size:clamp(2.4rem,6vw,5rem);line-height:1.05;margin:0 0 24px}p{color:#bbb;line-height:1.7;max-width:670px}.eyebrow{text-transform:uppercase;letter-spacing:.2em;font-size:.75rem;color:#aaa}.empty{margin-top:65px;border-top:1px solid #444;padding-top:30px}.notice{border:1px solid #555;padding:24px;margin:35px 0;background:#151515}button{background:#eee;color:#111;border:0;padding:12px 22px;font-weight:bold;cursor:pointer}#gallery[hidden],#entry[hidden]{display:none}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-top:30px}figure{margin:0}figure img{width:100%;display:block;cursor:zoom-in}figcaption{font-size:.8rem;color:#aaa;padding:8px 0}dialog{background:#111;color:white;border:1px solid #555;max-width:95vw}dialog::backdrop{background:#000e}dialog img{max-width:88vw;max-height:80vh;object-fit:contain}footer{padding:40px 6vw;color:#777}</style></head>
+<body><nav><a href="/">← New Mexico Through My Lens</a></nav><main><div class="eyebrow">Fine art photography</div><h1>Fine Art Figure Studies</h1><p>An exploration of form, shadow, light and the human figure through fine art photography.</p>
+<div id="entry" class="notice"><h2>Adults Only · 18+</h2><p>This section is intended for adults and may contain artistic nudity. By continuing, you confirm you are at least 18 years old.</p><button id="enter">I am 18 or older</button> <a href="/" style="margin-left:14px">Return to gallery</a></div>
+<div id="gallery" hidden><div id="photos" class="grid"></div><div id="empty" class="empty"><h2>Collection coming soon</h2><p>Selected fine art figure photographs will appear here once approved for publication.</p></div></div>
+</main><dialog id="preview"><button id="close" aria-label="Close preview">Close ×</button><p><img id="large" alt="Fine art figure photograph"></p></dialog><footer>© 2026 New Mexico Through My Lens</footer>
+<script>
+const enter=document.getElementById('enter'),gallery=document.getElementById('gallery'),entry=document.getElementById('entry');
+enter.addEventListener('click',()=>{entry.hidden=true;gallery.hidden=false;});
+/* Add approved, adult-model photographs here only after documented publication consent.
+   Keep figure photographs separate from the general storefront and print pipeline.
+   Example: {src:'/figure-assets/approved-image.jpg',caption:'Figure Study 01'} */
+const approvedPhotos=[];
+const photos=document.getElementById('photos'),empty=document.getElementById('empty'),preview=document.getElementById('preview'),large=document.getElementById('large');
+for(const photo of approvedPhotos){const fig=document.createElement('figure'),img=document.createElement('img'),cap=document.createElement('figcaption');img.src=photo.src;img.alt=photo.caption||'Fine art figure study';img.loading='lazy';img.tabIndex=0;cap.textContent=photo.caption||'Figure study';const show=()=>{large.src=photo.src;preview.showModal()};img.addEventListener('click',show);img.addEventListener('keydown',e=>{if(e.key==='Enter')show()});fig.append(img,cap);photos.append(fig)}
+if(approvedPhotos.length)empty.hidden=true;
+document.getElementById('close').addEventListener('click',()=>preview.close());
+</script></body></html>
