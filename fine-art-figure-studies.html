@@ -1,19 +1,54 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Fine Art Figure Studies | New Mexico Through My Lens</title>
-<style>*{box-sizing:border-box}body{margin:0;background:#0d0d0d;color:#eee;font-family:Arial,Helvetica,sans-serif}a{color:#eee}nav{padding:22px 6vw;border-bottom:1px solid #333}nav a{text-decoration:none}main{max-width:1000px;margin:auto;padding:9vh 6vw}h1{font-size:clamp(2.4rem,6vw,5rem);line-height:1.05;margin:0 0 24px}p{color:#bbb;line-height:1.7;max-width:670px}.eyebrow{text-transform:uppercase;letter-spacing:.2em;font-size:.75rem;color:#aaa}.empty{margin-top:65px;border-top:1px solid #444;padding-top:30px}.notice{border:1px solid #555;padding:24px;margin:35px 0;background:#151515}button{background:#eee;color:#111;border:0;padding:12px 22px;font-weight:bold;cursor:pointer}#gallery[hidden],#entry[hidden]{display:none}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-top:30px}figure{margin:0}figure img{width:100%;display:block;cursor:zoom-in}figcaption{font-size:.8rem;color:#aaa;padding:8px 0}dialog{background:#111;color:white;border:1px solid #555;max-width:95vw}dialog::backdrop{background:#000e}dialog img{max-width:88vw;max-height:80vh;object-fit:contain}footer{padding:40px 6vw;color:#777}</style></head>
+<style>*{box-sizing:border-box}body{margin:0;background:#0d0d0d;color:#eee;font-family:Arial,Helvetica,sans-serif}a{color:#eee}nav{padding:22px 6vw;border-bottom:1px solid #333}nav a{text-decoration:none}main{max-width:1000px;margin:auto;padding:9vh 6vw}h1{font-size:clamp(2.4rem,6vw,5rem);line-height:1.05;margin:0 0 24px}p{color:#bbb;line-height:1.7;max-width:670px}.eyebrow{text-transform:uppercase;letter-spacing:.2em;font-size:.75rem;color:#aaa}.empty{margin-top:65px;border-top:1px solid #444;padding-top:30px}.notice{border:1px solid #555;padding:24px;margin:35px 0;background:#151515}button{background:#eee;color:#111;border:0;padding:12px 22px;font-weight:bold;cursor:pointer}#gallery[hidden],#entry[hidden]{display:none}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-top:30px}figure{margin:0}figure img{width:100%;display:block;cursor:zoom-in}.buy{margin:8px 0 0;background:#eee;color:#111;padding:10px 16px}.choices{display:flex;flex-wrap:wrap;gap:10px}.choices a{display:inline-block;padding:12px;border:1px solid #aaa;text-decoration:none}.choices a:hover{background:#333}figcaption{font-size:.8rem;color:#aaa;padding:8px 0}dialog{background:#111;color:white;border:1px solid #555;max-width:95vw}dialog::backdrop{background:#000e}dialog img{max-width:88vw;max-height:80vh;object-fit:contain}footer{padding:40px 6vw;color:#777}</style></head>
 <body><nav><a href="/">← New Mexico Through My Lens</a></nav><main><div class="eyebrow">Fine art photography</div><h1>Fine Art Figure Studies</h1><p>An exploration of form, shadow, light and the human figure through fine art photography.</p>
 <div id="entry" class="notice"><h2>Adults Only · 18+</h2><p>This section is intended for adults and may contain artistic nudity. By continuing, you confirm you are at least 18 years old.</p><button id="enter">I am 18 or older</button> <a href="/" style="margin-left:14px">Return to gallery</a></div>
-<div id="gallery" hidden><div id="photos" class="grid"></div><div id="empty" class="empty"><h2>Collection coming soon</h2><p>Selected fine art figure photographs will appear here once approved for publication.</p></div></div>
-</main><dialog id="preview"><button id="close" aria-label="Close preview">Close ×</button><p><img id="large" alt="Fine art figure photograph"></p></dialog><footer>© 2026 New Mexico Through My Lens</footer>
+<div id="gallery" hidden><p>Available print sizes: 8 × 10 ($55), 16 × 20 ($100), and 20 × 30 ($150), subject to each photograph’s print-quality eligibility.</p><div id="photos" class="grid"></div><div id="empty" class="empty"><h2>Collection coming soon</h2><p>Selected fine art figure photographs will appear here once approved for publication.</p></div></div>
+</main><dialog id="order"><button id="closeOrder" aria-label="Close ordering">Close ×</button><h2>Order Fine Art Print</h2><p id="orderPhoto"></p><div id="choices" class="choices"></div><p>Secure checkout through Stripe. Print fulfillment is handled through the existing storefront workflow.</p></dialog><dialog id="preview"><button id="close" aria-label="Close preview">Close ×</button><p><img id="large" alt="Fine art figure photograph"></p></dialog><footer>© 2026 New Mexico Through My Lens</footer>
 <script>
 const enter=document.getElementById('enter'),gallery=document.getElementById('gallery'),entry=document.getElementById('entry');
 enter.addEventListener('click',()=>{entry.hidden=true;gallery.hidden=false;});
-/* Add approved, adult-model photographs here only after documented publication consent.
-   Keep figure photographs separate from the general storefront and print pipeline.
-   Example: {src:'/figure-assets/approved-image.jpg',caption:'Figure Study 01'} */
-const approvedPhotos=[];
-const photos=document.getElementById('photos'),empty=document.getElementById('empty'),preview=document.getElementById('preview'),large=document.getElementById('large');
-for(const photo of approvedPhotos){const fig=document.createElement('figure'),img=document.createElement('img'),cap=document.createElement('figcaption');img.src=photo.src;img.alt=photo.caption||'Fine art figure study';img.loading='lazy';img.tabIndex=0;cap.textContent=photo.caption||'Figure study';const show=()=>{large.src=photo.src;preview.showModal()};img.addEventListener('click',show);img.addEventListener('keydown',e=>{if(e.key==='Enter')show()});fig.append(img,cap);photos.append(fig)}
-if(approvedPhotos.length)empty.hidden=true;
+/* Publish only adult-model images with documented permission for public display and print sales.
+   Add approved entries to figure-studies.json using the existing NM-### photo IDs.
+   A photograph is purchasable only if print-eligibility.json approves its size. */
+const catalogUrl='https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/figure-studies.json';
+const eligibilityUrl='https://raw.githubusercontent.com/producerpauls-prog/newmexicothroughmylens/main/print-eligibility.json';
+const links={'8X10':'https://buy.stripe.com/fZudRb0PQ7lK1cD3X67Vm04','16X20':'https://buy.stripe.com/3cI28tdCC49ybRh65e7Vm05','20X30':'https://buy.stripe.com/7sY3cx6aadK87B11OY7Vm06'};
+const prices={'8X10':'8 × 10 — $55','16X20':'16 × 20 — $100','20X30':'20 × 30 — $150'};
+const photos=document.getElementById('photos'),empty=document.getElementById('empty'),preview=document.getElementById('preview'),large=document.getElementById('large'),order=document.getElementById('order');
+async function loadFigureGallery(){
+ try{
+  const [catalogResponse,eligibilityResponse]=await Promise.all([fetch(catalogUrl+'?v='+Date.now(),{cache:'no-store'}),fetch(eligibilityUrl+'?v='+Date.now(),{cache:'no-store'})]);
+  if(!catalogResponse.ok||!eligibilityResponse.ok)throw new Error('Gallery or eligibility unavailable');
+  const catalog=await catalogResponse.json(),eligibility=await eligibilityResponse.json();
+  for(const photo of catalog.photos||[]){
+   const id=String(photo.id||'').toUpperCase();
+   if(!/^NM-\\d{3,9}$/.test(id)||photo.published!==true||photo.adultConsentConfirmed!==true||photo.printSalesAuthorized!==true)continue;
+   const fig=document.createElement('figure'),img=document.createElement('img'),cap=document.createElement('figcaption');
+   img.src='/print-assets/'+id+'.jpg';img.alt='Fine art figure study '+id;img.loading='lazy';img.tabIndex=0;
+   cap.textContent=photo.caption||id;
+   const show=()=>{large.src=img.src;preview.showModal()};
+   img.addEventListener('click',show);img.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();show()}});
+   fig.append(img,cap);
+   const sizes=(eligibility.photos?.[id]?.eligibleSizes||[]).filter(size=>links[size]);
+   if(sizes.length){
+    const buy=document.createElement('button');buy.className='buy';buy.textContent='Buy Print';
+    buy.addEventListener('click',()=>{
+      document.getElementById('orderPhoto').textContent='Photograph '+id;
+      const choices=document.getElementById('choices');choices.replaceChildren();
+      for(const size of sizes){
+       const a=document.createElement('a');a.textContent=prices[size];a.href=links[size]+'?client_reference_id='+encodeURIComponent(id+'_'+size);choices.append(a);
+      }
+      order.showModal();
+    });
+    fig.append(buy);
+   }else{const note=document.createElement('p');note.textContent='Gallery only — no eligible print sizes';fig.append(note)}
+   photos.append(fig);
+  }
+  empty.hidden=photos.children.length>0;
+ }catch(error){console.warn('Figure studies gallery unavailable',error)}
+}
+loadFigureGallery();
 document.getElementById('close').addEventListener('click',()=>preview.close());
+document.getElementById('closeOrder').addEventListener('click',()=>order.close());
 </script></body></html>
