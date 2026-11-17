@@ -23,7 +23,7 @@ async function loadFigureGallery(){
   const catalog=await catalogResponse.json(),eligibility=await eligibilityResponse.json();
   for(const photo of catalog.photos||[]){
    const id=String(photo.id||'').toUpperCase();
-   if(!/^NM-\\d{3,9}$/.test(id)||photo.published!==true||photo.adultConsentConfirmed!==true||photo.printSalesAuthorized!==true)continue;
+   if(!/^NM-\d{3,9}$/.test(id)||photo.published!==true||photo.adultConsentConfirmed!==true||photo.printSalesAuthorized!==true)continue;
    const fig=document.createElement('figure'),img=document.createElement('img'),cap=document.createElement('figcaption');
    img.src='/print-assets/'+id+'.jpg';img.alt='Fine art figure study '+id;img.loading='lazy';img.tabIndex=0;
    cap.textContent=photo.caption||id;
